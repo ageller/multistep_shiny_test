@@ -57,3 +57,12 @@
 .background-green{
     background-color: green !important;
 }
+
+/* misc */
+.fade {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+.showit {
+    opacity: 1 !important;
+}

@@ -34,9 +34,10 @@ ui <- fluidPage(
     # set the theme (many options : https://rstudio.github.io/shinythemes/)
     theme = shinytheme("yeti"),
 
-    # include custom CSS
+    # include custom CSS and JS
     tags$head(
-        tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")
+        tags$link(rel = "stylesheet", type = "text/css", href = "styles.css"),
+        tags$script(src = "transition.js")
     ),
 
     # App title 
