@@ -2,8 +2,9 @@
 .sidebar {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 85px) !important; 
+    height: calc(100vh - 100px) !important; 
     overflow-y: auto; 
+    margin-bottom: 0;
 }
 .sidebar-content{
     flex-grow: 1;
@@ -45,5 +46,14 @@
     width: 20px;
     pointer-events: none;
     cursor: pointer;
-    background-color: red; 
+    background-color: orange; 
+}
+.background-yellow{
+    background-color: yellow !important;
+}
+.background-red{
+    background-color: red !important;
+}
+.background-green{
+    background-color: green !important;
 }

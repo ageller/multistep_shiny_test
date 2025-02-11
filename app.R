@@ -12,13 +12,18 @@ namespace <- "testing"
 # modules for the ui
 source("src/R/ui_modules/defaults.R")
 source("src/R/ui_modules/main_panel.R")
-source("src/R/ui_modules/case_1_sidebar.R")
+source("src/R/ui_modules/use_case_1/case_1_sidebar.R")
+source("src/R/ui_modules/use_case_1/case_1_step_1_main_panel.R")
+source("src/R/ui_modules/use_case_1/case_1_step_2_main_panel.R")
+source("src/R/ui_modules/use_case_1/case_1_step_3_main_panel.R")
+source("src/R/ui_modules/use_case_1/case_1_step_4_main_panel.R")
 
 # modules for the server
-source("src/R/server_modules/shared_server.R")
+source("src/R/server_modules/main_server.R")
+source("src/R/server_modules/use_case_1_server.R")
 
 # load the data
-data(faithful)
+df <- iris
 
 # Define UI
 ui <- fluidPage(
@@ -47,7 +52,7 @@ ui <- fluidPage(
         sidebarPanel(
             class = "sidebar", 
             conditionalPanel(
-                condition = sprintf("input['%s'] == 1", NS(namespace, "case_1_sidebar")),
+                condition = sprintf("input['%s'] == 1", NS(namespace, "case_1_enabled")),
                 case_1_sidebar(namespace)
             ),
 
@@ -64,6 +69,25 @@ ui <- fluidPage(
                 condition = sprintf("input['%s'] == 1", NS(namespace, "main_enabled")),
                 main_panel(namespace)
             ),
+            conditionalPanel(
+                condition = sprintf("input['%s'] == 1", NS(namespace, "case_1_enabled")),
+                conditionalPanel(
+                    condition = sprintf("input['%s'] == 1", NS(namespace, "case_1_step_1_enabled")),
+                    case_1_step_1_main_panel(namespace)
+                ),
+                conditionalPanel(
+                    condition = sprintf("input['%s'] == 1", NS(namespace, "case_1_step_2_enabled")),
+                    case_1_step_2_main_panel(namespace)
+                ),
+                conditionalPanel(
+                    condition = sprintf("input['%s'] == 1", NS(namespace, "case_1_step_3_enabled")),
+                    case_1_step_3_main_panel(namespace)
+                ),
+                conditionalPanel(
+                    condition = sprintf("input['%s'] == 1", NS(namespace, "case_1_step_4_enabled")),
+                    case_1_step_4_main_panel(namespace)
+                )
+            ),
         )
 
     )
@@ -71,7 +95,9 @@ ui <- fluidPage(
 
 # Define server logic
 server <- function(input, output, session) {
-	shared_server(namespace)
+	main_server(namespace)
+	use_case_1_server(namespace, df)
+
 }
 
 # Return the shiny.appobj object
